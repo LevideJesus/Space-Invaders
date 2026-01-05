@@ -1,5 +1,6 @@
 import pygame
 from sys import exit
+import os
 pygame.init()
 
 WIDTH = 512
@@ -9,18 +10,30 @@ Y_POSITION_PLAYER = 448
 HEIGHT_PLAYER = 64
 WIDTH_PLAYER = 64
 
+PLAYER_X = 224
+PLAYER_Y = 448
+PLAYER_WIDTH = 64
+PLAYER_HEIGHT = 64
 
-background_image = pygame.image.load("images/background.png")
+background_image = pygame.image.load(os.path.join("images", "background.png"))
+player_image = pygame.image.load(os.path.join("images", "space-ship.png"))
 pygame.display.set_caption("Space Invader")
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 clock = pygame.time.Clock()
 
-player = pygame.Rect(X_POSITION_PLAYER,Y_POSITION_PLAYER, HEIGHT_PLAYER, WIDTH_PLAYER)
 
 def draw ():
-  pygame.draw.rect(window,("blue"), player)
+  window.blit(background_image, (0,0))
+  window.blit(player.image, player)
+  
 
+class Player (pygame.Rect):
+  def __init__(self):
+    pygame.Rect.__init__(self, PLAYER_X, PLAYER_Y, PLAYER_WIDTH, PLAYER_HEIGHT)
+    self.image = player_image
+
+player = Player()
 
 
 while True:
@@ -29,7 +42,15 @@ while True:
       pygame.quit()
       exit()
 
-  window.blit(background_image, (0,0))
+  keys = pygame.key.get_pressed()
+  if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+    player.x -= 5
+
+  if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+    player.x +=5 
+  
+
+  
   draw()
   pygame.display.update()
   clock.tick(60)    
