@@ -9,6 +9,7 @@ X_POSITION_PLAYER = 224
 Y_POSITION_PLAYER = 448
 HEIGHT_PLAYER = 64
 WIDTH_PLAYER = 64
+PLAYER_DISTANCE = 5
 
 PLAYER_X = 224
 PLAYER_Y = 448
@@ -44,10 +45,10 @@ while True:
 
   keys = pygame.key.get_pressed()
   if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-    player.x -= 5
+    player.x = max(player.x - PLAYER_DISTANCE, 0)
 
   if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-    player.x +=5 
+    player.x = min(player.x + PLAYER_DISTANCE, WIDTH - PLAYER_WIDTH) 
   
 
   
