@@ -16,8 +16,17 @@ PLAYER_Y = 448
 PLAYER_WIDTH = 64
 PLAYER_HEIGHT = 64
 
-background_image = pygame.image.load(os.path.join("images", "background.png"))
-player_image = pygame.image.load(os.path.join("images", "space-ship.png"))
+#images
+def load_images(image_name, scale=None):
+  image = pygame.image.load(os.path.join("images", image_name))
+  if scale is not None:
+    image = pygame.transform.scale(image, scale)
+  return image  
+
+
+background_image = load_images("background.png")
+player_image = load_images("space-ship.png")
+
 pygame.display.set_caption("Space Invader")
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
